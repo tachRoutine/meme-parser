@@ -28,16 +28,17 @@ export class Parser {
     const messageParts: string[] = [];
     let token = this.nextToken();
 
-    while(token.type !== TokenType.Word) {
-        messageParts.push(token.value)
-        token = this.nextToken();
+    // I Collect all Word tokens as message parts until a String token is found
+    while (token.type === TokenType.Word) {
+      messageParts.push(token.value);
+      token = this.nextToken();
     }
 
     if (token.type !== TokenType.String) {
-        throw new Error("Expected string token");
+      throw new Error("Expected string token");
     }
 
-    const command =  token.value;
+    const command = token.value;
 
     if (this.nextToken().type !== TokenType.EOF) {
       throw new Error('Extra input after command');

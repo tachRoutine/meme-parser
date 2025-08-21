@@ -48,12 +48,12 @@ export class Lexer {
     }
 
     let value = "";
-    while (this.current && /\s/.test(this.current) && this.current !== "") {
+    while (this.current && !/\s/.test(this.current) && this.current !== '"') {
       value += this.current;
       this.advance();
     }
     if (value.length === 0) {
-      throw new Error("Unexpected character");
+      throw new Error(`Unexpected character: ${this.current}`);
     }
     return { type: TokenType.Word, value };
   }
