@@ -36,5 +36,17 @@ export class Parser {
     if (token.type !== TokenType.String) {
         throw new Error("Expected string token");
     }
+
+    const command =  token.value;
+
+    if (this.nextToken().type !== TokenType.EOF) {
+      throw new Error('Extra input after command');
+    }
+
+    if (command === 'print') {
+      console.log(messageParts.join(' '));
+    } else {
+      throw new Error(`Unknown command: ${command}`);
+    }
   }
 }
