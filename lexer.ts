@@ -10,23 +10,41 @@ export class Lexer {
 
   private advance() {
     this.pos++;
-    this.current = this.pos < this.input.length ? this.input[this.pos] ?? null : null;
+    this.current =
+      this.pos < this.input.length ? this.input[this.pos] ?? null : null;
   }
-  
+
   private skipWhitespace() {
     while (this.current && /\s/.test(this.current)) {
       this.advance();
     }
   }
 
-  nextToken(): Token{
+  nextToken(): Token {
     this.skipWhitespace();
 
-    if(!this.current){
-        return {
-            type: TokenType.EOF,
-            value:''
-        }
+    if (!this.current) {
+      return {
+        type: TokenType.EOF,
+        value: "",
+      };
+    }
+
+    if (this.current == '"') {
+      this.advance();
+      let value = "";
+      while (this.current && this.current != '"') {
+        value += this.current;
+        this.advance();
+      }
+      if (this.current !== '"') {
+        throw new Error("Unclosed quote");
+      }
+      this.advance();
+      return {
+        type: TokenType.String,
+        value,
+      };
     }
   }
 }
