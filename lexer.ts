@@ -1,3 +1,5 @@
+import { TokenType, type Token } from "./tokens";
+
 export class Lexer {
   private pos: number = 0;
   private current: string | null = null;
@@ -14,6 +16,17 @@ export class Lexer {
   private skipWhitespace() {
     while (this.current && /\s/.test(this.current)) {
       this.advance();
+    }
+  }
+
+  nextToken(): Token{
+    this.skipWhitespace();
+
+    if(!this.current){
+        return {
+            type: TokenType.EOF,
+            value:''
+        }
     }
   }
 }
