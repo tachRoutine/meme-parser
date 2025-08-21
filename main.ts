@@ -3,6 +3,7 @@ import { Parser } from "./parser";
 
 async function main() {
   let input = Bun.file('main.meme').text();
+  console.log("INPUT ",input)
 
   try {
     const lexer = new Lexer((await input).trim());
