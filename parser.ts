@@ -27,5 +27,10 @@ export class Parser {
   parseAndExecute() {
     const messageParts: string[] = [];
     let token = this.nextToken();
+
+    while(token.type !== TokenType.EOF) {
+        messageParts.push(token.value)
+        token = this.nextToken();
+    }
   }
 }
