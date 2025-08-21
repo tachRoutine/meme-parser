@@ -28,9 +28,13 @@ export class Parser {
     const messageParts: string[] = [];
     let token = this.nextToken();
 
-    while(token.type !== TokenType.EOF) {
+    while(token.type !== TokenType.Word) {
         messageParts.push(token.value)
         token = this.nextToken();
+    }
+
+    if (token.type !== TokenType.String) {
+        throw new Error("Expected string token");
     }
   }
 }
