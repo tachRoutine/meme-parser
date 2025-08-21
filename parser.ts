@@ -32,6 +32,9 @@ export class Parser {
     while (token.type === TokenType.Word) {
       messageParts.push(token.value);
       token = this.nextToken();
+      if (token.type === TokenType.String) {
+        break;
+      }
     }
 
     if (token.type !== TokenType.String) {
