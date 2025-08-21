@@ -10,4 +10,10 @@ export class Lexer {
     this.pos++;
     this.current = this.pos < this.input.length ? this.input[this.pos] ?? null : null;
   }
+  
+  private skipWhitespace() {
+    while (this.current && /\s/.test(this.current)) {
+      this.advance();
+    }
+  }
 }
